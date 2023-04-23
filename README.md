@@ -1,6 +1,12 @@
 # FMG test  
 API который запускает, останавливает, отражает статус, и выдает результат работы процесса на Linux
 
+## Specifications
+
+**Framework**:  FastAPI  
+**Process**:    ping -i 5 -c 100 www.google.com  
+ping google.com 100 times every 5 second
+
 
 ## Build & Run
 
