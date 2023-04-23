@@ -4,13 +4,13 @@ API который запускает, останавливает, отража�
 
 *Build docker image:*  
 
-```properties
+```console
 docker build -t fmg_test .
 ```  
 
 
 *Run docker container:*
-```properties
+```console
 docker run -p 80:80 fmg_test
 ```  
 
