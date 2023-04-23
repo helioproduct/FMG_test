@@ -3,8 +3,9 @@ API который запускает, останавливает, отража�
 
 ## Specifications
 
-**Framework**:  FastAPI  
-**Process**:    ping -i 5 -c 100 www.google.com  
+### Framework:  FastAPI  
+### Process     ping  
+
 ping google.com 100 times every 5 second
 
 
