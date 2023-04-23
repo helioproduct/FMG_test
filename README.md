@@ -23,6 +23,7 @@ docker build -t fmg_test .
 docker run -p 80:80 fmg_test
 ```  
 
+*port should be free*
 
 #### After starting API documentaion will be available on:  
 http://0.0.0.0:80
