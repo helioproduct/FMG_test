@@ -15,10 +15,11 @@ docker run -p 80:80 fmg_test
 ```  
 
 
-After starting API documentaion will be available on:  
+#### After starting API documentaion will be available on:  
 http://0.0.0.0:80
 
-Or on http://[remote-machine-adress]:80  
+#### Or on  
+http://remote-machine-adress:80  
 
 
 
