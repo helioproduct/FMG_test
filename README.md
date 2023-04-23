@@ -26,7 +26,7 @@ docker run -p 80:80 fmg_test
 *port should be free*
 
 #### After starting API documentaion will be available on:  
-http://0.0.0.0:80
+http://0.0.0.0:80/api/docs  
 
 #### Or on:  
 http://remote-machine-adress:80  
@@ -50,10 +50,11 @@ Get status:
 curl -X GET "http://0.0.0.0/api/ping"
 ```  
 
-Get status:  
+Get result:  
 ```console
 curl -X GET "http://0.0.0.0/api/ping/result"
 ```  
 
-
+**Using Swagger UI:**  
+http://0.0.0.0:80/api/docs
 
