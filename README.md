@@ -33,4 +33,27 @@ http://remote-machine-adress:80
 
 
 ## Usage
+**Using curl:**
+
+Start process:  
+```console
+curl -X POST "http://0.0.0.0/api/ping/start"
+```  
+
+Stop process:  
+```console
+curl -X POST "http://0.0.0.0/api/ping/stop"
+```  
+
+Get status:  
+```console
+curl -X GET "http://0.0.0.0/api/ping"
+```  
+
+Get status:  
+```console
+curl -X GET "http://0.0.0.0/api/ping/result"
+```  
+
+
 
