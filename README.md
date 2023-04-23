@@ -6,7 +6,7 @@ API который запускает, останавливает, отража�
 ### Framework:  FastAPI  
 ### Process:    ping  
 
-ping google.com 100 times every 5 second
+*ping google.com 100 times every 5 second*
 
 
 ## Build & Run
