@@ -1,14 +1,18 @@
-FROM python:3.7.2-alpine3.8
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 LABEL maintainer="nikolay.p998@gmail.com"
 
-# Copy all files from repo
-COPY . ./app
+# Set the working directory to /app
 WORKDIR /app
 
-# Dependencies
-RUN apk update && apk upgrade && apk add bash
-RUN ["pip", "install", "--upgrade", "pip"]
-RUN ["pip", "install", "-r", "requirements.txt"]
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# start API process
-CMD ["python", "main.py"]
+# Install any needed packages specified in requirements.txt
+RUN pip install -r requirements.txt
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Run as process
+CMD ["uvicorn", "api:app", "--reload"]
