@@ -68,13 +68,15 @@ class LinuxProcessStatistic:
     def __init__(self, linux_process: LinuxProcess):
         self.linux_process = linux_process
 
+    # Returns CPU usage in percentages
     def get_cpu_usage(self):
         if self.linux_process.status == ProcessStatus.RUNNING:
             pid = self.linux_process.pid
             process = psutil.Process(pid)
             return process.cpu_percent()
         return 0
-
+    
+    # Returns memory usage in MB
     def get_memory_usage(self):
         if self.linux_process.status == ProcessStatus.RUNNING:
             pid = self.linux_process.pid
