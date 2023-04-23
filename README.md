@@ -4,7 +4,7 @@ API который запускает, останавливает, отража�
 ## Specifications
 
 ### Framework:  FastAPI  
-### Process     ping  
+### Process:    ping  
 
 ping google.com 100 times every 5 second
 
@@ -27,7 +27,7 @@ docker run -p 80:80 fmg_test
 #### After starting API documentaion will be available on:  
 http://0.0.0.0:80
 
-#### Or on  
+#### Or on:  
 http://remote-machine-adress:80  
 
 
