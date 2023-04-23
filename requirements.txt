@@ -1,0 +1,2 @@
+psutil~=5.9.0
+fastapi~=0.95.1
