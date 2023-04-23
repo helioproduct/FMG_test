@@ -97,3 +97,12 @@ class LinuxProcessStatistic:
             CPU usage: {self.get_cpu_usage():.2f}% \
             Memory usage: {self.get_memory_usage():.2f} MB"
 
+    def to_dict(self):
+        return {
+            "Status": f"{self.linux_process.status}",
+            "PID": f"{self.linux_process.pid}",
+            "Working time": f"{self.get_working_time()} seconds",
+            "CPU usage": f"{self.get_cpu_usage()} %",
+            "Memory usage": f"{self.get_memory_usage()} MB",
+        }
+
