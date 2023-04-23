@@ -45,5 +45,52 @@ class LinuxProcess:
     def get_result(self):
         if self.status == ProcessStatus.RUNNING:
             return 'Process is still running'
-        return subprocess.check_output(self.command, shell=True).decode("utf-8")
+        elif self.status == ProcessStatus.NOT_STARTED:
+            return None
+        # process is killed
+        out, err = self._process.communicate()
+        return out.decode("utf-8")
+
+    @property
+    def start_time(self):
+        return self._start_time
+
+    @property
+    def end_time(self):
+        return self._end_time
+
+
+class LinuxProcessStatistic:
+    def __init__(self, linux_process: LinuxProcess):
+        self.linux_process = linux_process
+
+    def get_cpu_usage(self):
+        if self.linux_process.status == ProcessStatus.RUNNING:
+            pid = self.linux_process.pid
+            process = psutil.Process(pid)
+            return process.cpu_percent()
+        return 0
+
+    def get_memory_usage(self):
+        if self.linux_process.status == ProcessStatus.RUNNING:
+            pid = self.linux_process.pid
+            process = psutil.Process(pid)
+            memory_info = process.memory_info()
+            return memory_info.rss / 1024 / 1024
+        return 0
+
+    def get_working_time(self):
+        if self.linux_process.status == ProcessStatus.RUNNING:
+            return time.time() - self.linux_process.start_time
+        if self.linux_process.status == ProcessStatus.NOT_STARTED:
+            return 0
+        return self.linux_process.end_time - self.linux_process.start_time
+
+    def __str__(self):
+        return f"Process info:\n\
+            Status: {self.linux_process.status}\n\
+            PID: {self.linux_process.pid}\n\
+            Working time: {self.get_working_time():.2f} seconds\n\
+            CPU usage: {self.get_cpu_usage():.2f}%\n\
+            Memory usage: {self.get_memory_usage():.2f} MB"
 
