@@ -15,7 +15,6 @@ class LinuxProcess:
         self.status = ProcessStatus.NOT_STARTED
 
     def start(self):
-
         if self.status != ProcessStatus.RUNNING:
             self.process = subprocess.Popen(self.command)
         elif self.process:
@@ -24,7 +23,6 @@ class LinuxProcess:
             self.status = ProcessStatus.NOT_STARTED
 
     def stop(self):
-
         if self.status == ProcessStatus.RUNNING:
             self.process.kill()
         self.process = None
