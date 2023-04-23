@@ -1,18 +1,13 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3.9-slim-buster
 LABEL maintainer="nikolay.p998@gmail.com"
 
-# Set the working directory to /app
-WORKDIR /app
+RUN apt-get update && apt-get install -y iputils-ping
 
-# Copy the current directory contents into the container at /app
+COPY requirements.txt /app/requirements.txt
+
+WORKDIR /app
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
-
-# Run as process
-CMD ["uvicorn", "api:app", "--reload"]
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "80"]
