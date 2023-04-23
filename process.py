@@ -85,6 +85,7 @@ class LinuxProcessStatistic:
             return memory_info.rss / 1024 / 1024
         return 0
 
+    # Returns execution time of process in seconds
     def get_working_time(self):
         if self.linux_process.status == ProcessStatus.RUNNING:
             return time.time() - self.linux_process.start_time
