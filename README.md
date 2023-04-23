@@ -55,6 +55,7 @@ Get result:
 curl -X GET "http://0.0.0.0/api/ping/result"
 ```  
 
-**Using Swagger UI:**  
+**Using Swagger UI:**   
+
 http://0.0.0.0:80/api/docs
 
