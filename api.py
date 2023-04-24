@@ -55,8 +55,6 @@ async def get_status():
 @app.get("/api/ping/result")
 async def get_result():
     global process
-
     if process.status == ProcessStatus.NOT_STARTED:
         raise HTTPException(status_code=404, detail="Process not started")
-
     return {"result": process.get_result()}
