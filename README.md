@@ -37,12 +37,12 @@ http://remote-machine-adress:80
 
 Start process:  
 ```console
-curl -X POST "http://0.0.0.0/api/ping/start"
+curl -X POST "http://0.0.0.0/api/ping/" -d "stop"
 ```  
 
 Stop process:  
 ```console
-curl -X POST "http://0.0.0.0/api/ping/stop"
+curl -X POST "http://0.0.0.0/api/ping/" -d "stop"
 ```  
 
 Get status:  
