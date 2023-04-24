@@ -2,9 +2,9 @@ from fastapi import FastAPI, HTTPException, APIRouter
 from starlette.responses import RedirectResponse, JSONResponse
 from process import LinuxProcess, LinuxProcessStatistic, ProcessStatus
 
-command = "ping -i 5 -c 100 www.google.com"
+command_to_execute = "ping -i 5 -c 100 www.google.com"
 output_file = "output.txt"
-process = LinuxProcess(command.split(), output_file)
+process = LinuxProcess(command_to_execute.split(), output_file)
 
 app = FastAPI()
 router = APIRouter()
@@ -22,31 +22,26 @@ async def redirect_to_docs():
     return RedirectResponse(url="/docs")
 
 
-@app.post("/api/ping/start")
-def start_process():
+@app.post("/api/ping/")
+def process_control(command: str):
     global process
-    global command
 
-    # already running
-    if process is not None and process.status == ProcessStatus.RUNNING:
-        raise HTTPException(status_code=400, detail="Process is already running")
+    if command == "start":
+        # already running
+        if process is not None and process.status == ProcessStatus.RUNNING:
+            return {"status": "Process is already running"}
+        # start process
+        process.start()
 
-    # start process
-    process.start()
+    elif command == "stop":
+        if process is not None and process.status == ProcessStatus.RUNNING:
+            process.stop()
+            return {"status": "Process stopped"}
+        elif process.status == ProcessStatus.KILLED:
+            return {"status": "Process already stopped"}
+        return {"status": "Process not started yet"}
+
     return {"status": process.status.value}
-
-
-@app.post("/api/ping/stop")
-async def stop_process():
-    global process
-
-    if process is not None and process.status == ProcessStatus.RUNNING:
-        process.stop()
-        return {"status": "Process stopped"}
-    elif process.status == ProcessStatus.KILLED:
-        return {"status": "Process stopped"}
-    else:
-        raise HTTPException(status_code=404, detail="Process not found")
 
 
 @app.get("/api/ping")
@@ -60,4 +55,8 @@ async def get_status():
 @app.get("/api/ping/result")
 async def get_result():
     global process
+
+    if process.status == ProcessStatus.NOT_STARTED:
+        raise HTTPException(status_code=404, detail="Process not started")
+
     return {"result": process.get_result()}
