@@ -22,7 +22,7 @@ class LinuxProcess:
 
     def start(self):
         if self.status != ProcessStatus.RUNNING:
-            with open(self._output_file, "w") as output:
+            with open(self._output_file, "wt") as output:
                 self._process = subprocess.Popen(self._command, stdout=output)
             self._start_time = time.time()
 
@@ -52,7 +52,7 @@ class LinuxProcess:
             return 'Process not started'
 
         # process is killed
-        with open(self._output_file, "r") as output:
+        with open(self._output_file, "rt") as output:
             return output.read()
 
     @property
@@ -75,7 +75,7 @@ class LinuxProcessStatistic:
             process = psutil.Process(pid)
             return process.cpu_percent()
         return 0
-    
+
     # Returns memory usage in MB
     def get_memory_usage(self):
         if self.linux_process.status == ProcessStatus.RUNNING:
@@ -92,13 +92,6 @@ class LinuxProcessStatistic:
         if self.linux_process.status == ProcessStatus.NOT_STARTED:
             return 0
         return self.linux_process.end_time - self.linux_process.start_time
-
-    def __str__(self):
-        return f"Status: {self.linux_process.status} \
-            PID: {self.linux_process.pid} \
-            Working time: {self.get_working_time():.2f} seconds \
-            CPU usage: {self.get_cpu_usage():.2f}% \
-            Memory usage: {self.get_memory_usage():.2f} MB"
 
     def to_dict(self):
         return {
